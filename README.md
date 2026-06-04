@@ -27,8 +27,8 @@ python -m venv .venv
 .venv\Scripts\activate     # Windows PowerShell
 # source .venv/bin/activate  # macOS / Linux
 
-# 3. Install dependencies (the first notebook cell does this for you, too)
-pip install --upgrade langchain langchain-experimental langchain-openai python-dotenv pyvis
+# 3. Install dependencies
+pip install -r requirements.txt
 ```
 
 Create a `.env` file in the project root:
@@ -41,6 +41,10 @@ OPENAI_API_KEY=sk-...
 
 ## Running
 
+There are two ways to use this project: the **notebook** (step-by-step exploration) or the **Streamlit web app** (point-and-click UI).
+
+### Option A — Notebook
+
 Open `knowledge_graph.ipynb` in Jupyter / VS Code and run all cells. The notebook will:
 
 1. Load the API key from `.env`.
@@ -49,6 +53,18 @@ Open `knowledge_graph.ipynb` in Jupyter / VS Code and run all cells. The noteboo
 4. Render `knowledge_graph.html` and open it in your default browser.
 
 To use your own text, edit the `text = """ ... """` block in the cell under **"Extract graph data"**.
+
+### Option B — Streamlit web app
+
+Run the interactive web app defined in `app.py`:
+
+```bash
+streamlit run app.py
+```
+
+Your browser opens at `http://localhost:8501`. From there you can paste any text, choose the model, optionally constrain node types, click **Generate**, and view the resulting interactive graph plus the raw nodes/relationships — no code editing required. The app reads `OPENAI_API_KEY` from `.env`, or you can paste a key into the sidebar.
+
+> Requires `streamlit >= 1.50`. See the note in `requirements.txt` about the `starlette` / `fastapi` version interplay if you hit an `ImportError` on startup.
 
 ## How it works
 

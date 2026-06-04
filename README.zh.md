@@ -27,8 +27,8 @@ python -m venv .venv
 .venv\Scripts\activate     # Windows PowerShell
 # source .venv/bin/activate  # macOS / Linux
 
-# 3. 安装依赖（notebook 第一格也会自动执行）
-pip install --upgrade langchain langchain-experimental langchain-openai python-dotenv pyvis
+# 3. 安装依赖
+pip install -r requirements.txt
 ```
 
 在项目根目录创建 `.env` 文件，写入：
@@ -41,6 +41,10 @@ OPENAI_API_KEY=sk-...
 
 ## 运行方式
 
+本项目有两种使用方式：**Notebook**（逐步探索）或 **Streamlit 网页应用**（点点点的图形界面）。
+
+### 方式 A —— Notebook
+
 在 Jupyter 或 VS Code 中打开 `knowledge_graph.ipynb`，点击"全部运行"。Notebook 会依次：
 
 1. 从 `.env` 读取 API Key；
@@ -49,6 +53,18 @@ OPENAI_API_KEY=sk-...
 4. 生成 `knowledge_graph.html` 并在浏览器中自动打开。
 
 如需替换为自己的文本，修改 **"Extract graph data"** 下方代码格的 `text = """ ... """` 即可。
+
+### 方式 B —— Streamlit 网页应用
+
+运行 `app.py` 中定义的交互式网页应用：
+
+```bash
+streamlit run app.py
+```
+
+浏览器会自动打开 `http://localhost:8501`。在界面里可以：粘贴任意文本、选择模型、（可选）限制节点类型、点击**生成知识图谱**，即可查看交互式图谱以及原始的节点/关系数据——全程无需改代码。应用会从 `.env` 读取 `OPENAI_API_KEY`，也可以直接在侧边栏粘贴 Key。
+
+> 需要 `streamlit >= 1.50`。若启动时遇到 `ImportError`，请参考 `requirements.txt` 中关于 `starlette` / `fastapi` 版本配合的说明。
 
 ## 工作原理
 

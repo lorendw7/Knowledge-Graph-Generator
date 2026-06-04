@@ -1,0 +1,14 @@
+# Streamlit configuration for this project.
+#
+# Why fileWatcherType = "none":
+# Streamlit's hot-reload watcher scans the paths of EVERY imported module on
+# each rerun. Some of our transitive dependencies (transformers, pulled in by
+# langchain) expose deprecated lazy aliases whose paths trigger importing
+# `torchvision` when probed. Since torchvision isn't installed, this prints a
+# noisy `ModuleNotFoundError: No module named 'torchvision'` traceback on every
+# rerun. Disabling the file watcher avoids scanning those modules entirely.
+#
+# Trade-off: the app no longer auto-reloads when you edit app.py. Just use the
+# "Rerun" button (or press "R") in the browser, or restart `streamlit run`.
+[server]
+fileWatcherType = "none"

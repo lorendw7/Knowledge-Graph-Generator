@@ -9,5 +9,10 @@ python-dotenv>=1.0.0
 # Graph visualization
 pyvis>=0.3.2
 
-# Web UI
-streamlit>=1.32.0
+# Web UI (Streamlit app: `streamlit run app.py`)
+# NOTE: streamlit >= 1.50 switched its web server from tornado to starlette/uvicorn
+# and needs starlette >= 0.48 (it imports DEFAULT_EXCLUDED_CONTENT_TYPES).
+# If this env ALSO has fastapi installed, fastapi must be >= 0.116 so it allows
+# the newer starlette — older fastapi (e.g. 0.115.x) pins starlette < 0.46 and
+# will cause: ImportError: cannot import name 'DEFAULT_EXCLUDED_CONTENT_TYPES'.
+streamlit>=1.50.0
